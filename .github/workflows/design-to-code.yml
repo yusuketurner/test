@@ -1,0 +1,73 @@
+name: Design to Code
+
+on:
+  push:
+    paths:
+      - 'designs/*.jpg'
+      - 'designs/*.jpeg'
+      - 'designs/*.JPG'
+      - 'designs/*.JPEG'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Get added JPEG files
+        id: changed_files
+        run: |
+          ADDED=$(git diff --name-only --diff-filter=A HEAD~1 HEAD \
+            -- 'designs/*.jpg' 'designs/*.jpeg' 'designs/*.JPG' 'designs/*.JPEG' \
+            | tr '\n' ' ')
+          echo "files=$ADDED" >> $GITHUB_OUTPUT
+          echo "Added files: $ADDED"
+
+      - name: Generate HTML/CSS from design
+        id: generate
+        if: steps.changed_files.outputs.files != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          for file in ${{ steps.changed_files.outputs.files }}; do
+            echo "Processing: $file"
+            python scripts/generate_code.py "$file"
+          done
+
+      - name: Commit and push generated code
+        if: steps.generate.outcome == 'success'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add output/
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "auto: generate HTML/CSS from $(echo '${{ steps.changed_files.outputs.files }}' | xargs -n1 basename | tr '\n' ' ')"
+            git push
+          fi
+
+      - name: Send notifications
+        if: always()
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GMAIL_FROM: ${{ secrets.GMAIL_FROM }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          NOTIFY_TO_EMAIL: choooolu47@gmail.com
+          FILES_PROCESSED: ${{ steps.changed_files.outputs.files }}
+          JOB_STATUS: ${{ job.status }}
+        run: python scripts/notify.py

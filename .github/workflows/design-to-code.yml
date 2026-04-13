@@ -61,13 +61,10 @@ jobs:
             git push
           fi
 
-      - name: Send notifications
+      - name: Send Discord notification
         if: always()
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          GMAIL_FROM: ${{ secrets.GMAIL_FROM }}
-          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-          NOTIFY_TO_EMAIL: choooolu47@gmail.com
           FILES_PROCESSED: ${{ steps.changed_files.outputs.files }}
           JOB_STATUS: ${{ job.status }}
         run: python scripts/notify.py

@@ -3,28 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>カスタム＆スタック - お住まいに手作りインテリアを</title>
+    <title>カスタム＆クラフト - お住まいに手作りインテリアを</title>
     <style>
         /* CSS Custom Properties */
         :root {
-            --color-primary: #8B6914;
-            --color-primary-light: #C4973A;
+            --color-primary: #8B6F4E;
+            --color-primary-dark: #6B5040;
+            --color-accent: #C49A6C;
             --color-bg: #FAF8F5;
-            --color-bg-dark: #4A3728;
-            --color-text: #333333;
+            --color-bg-dark: #3D3228;
+            --color-bg-section: #F5F0E8;
+            --color-text: #2C2C2C;
             --color-text-light: #666666;
-            --color-text-muted: #888888;
-            --color-white: #ffffff;
-            --color-section-bg: #F5F0E8;
-            --color-dark-section: #5C4A32;
-            --font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            --color-text-muted: #999999;
+            --color-white: #FFFFFF;
+            --color-btn: #8B6F4E;
+            --color-btn-hover: #6B5040;
+            --font-family: 'Hiragino Kaku Gothic Pro', 'Meiryo', 'Yu Gothic', sans-serif;
             --spacing-xs: 8px;
             --spacing-sm: 16px;
             --spacing-md: 24px;
-            --spacing-lg: 48px;
-            --spacing-xl: 80px;
+            --spacing-lg: 40px;
+            --spacing-xl: 60px;
+            --spacing-xxl: 80px;
             --border-radius: 4px;
-            --transition: all 0.3s ease;
+            --max-width: 1000px;
         }
 
         /* Reset & Base */
@@ -52,482 +55,462 @@
             display: block;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* =====================
-           HEADER / HERO SECTION
-        ===================== */
-        .hero {
-            position: relative;
-            width: 100%;
-            min-height: 420px;
-            background: linear-gradient(135deg, #8B7355 0%, #6B5240 30%, #4A3728 60%, #3D2E1E 100%);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .hero::before {
-            content: '';
+        /* Navigation */
+        nav {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
+            z-index: 100;
+            padding: 20px var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            color: var(--color-white);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            line-height: 1.3;
+            text-decoration: none;
+        }
+
+        .nav-logo span {
+            display: block;
+            font-size: 9px;
+            opacity: 0.8;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-md);
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-white);
+            text-decoration: none;
+            font-size: 11px;
+            opacity: 0.9;
+            transition: opacity 0.2s;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 420px;
+            overflow: hidden;
+            background-color: #4A3728;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
             background: 
-                repeating-linear-gradient(
-                    90deg,
-                    transparent,
-                    transparent 12px,
-                    rgba(0,0,0,0.08) 12px,
-                    rgba(0,0,0,0.08) 14px
+                linear-gradient(
+                    to right,
+                    rgba(58, 40, 25, 0.85) 0%,
+                    rgba(58, 40, 25, 0.4) 50%,
+                    rgba(58, 40, 25, 0.1) 100%
                 );
             z-index: 1;
         }
 
-        /* Wood texture overlay */
-        .hero::after {
+        .hero-image-wrapper {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: stretch;
+        }
+
+        /* Wooden slats effect */
+        .wood-slats {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 180px;
+            background: repeating-linear-gradient(
+                180deg,
+                #6B4C2A 0px,
+                #5A3D20 40px,
+                #7A5535 41px,
+                #6B4C2A 80px
+            );
+            z-index: 0;
+        }
+
+        .hero-room-image {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 75%;
+            background: linear-gradient(135deg, #C4956A 0%, #8B6040 30%, #5C3D20 60%, #3D2810 100%);
+            z-index: 0;
+        }
+
+        /* Room furniture silhouettes */
+        .hero-room-image::before {
             content: '';
             position: absolute;
-            top: 0;
+            bottom: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(ellipse at 70% 50%, rgba(180, 140, 80, 0.3) 0%, transparent 60%),
-                radial-gradient(ellipse at 30% 80%, rgba(100, 70, 40, 0.4) 0%, transparent 50%);
-            z-index: 2;
-        }
-
-        .hero-nav {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-        }
-
-        .hero-logo {
-            color: var(--color-white);
-            font-size: 11px;
-            font-weight: 700;
-            line-height: 1.3;
-            opacity: 0.9;
-        }
-
-        .hero-nav-links {
-            display: none;
-            list-style: none;
-            gap: 24px;
-        }
-
-        .hero-nav-links a {
-            color: var(--color-white);
-            font-size: 12px;
-            opacity: 0.85;
-            transition: var(--transition);
-        }
-
-        .hero-nav-links a:hover {
-            opacity: 1;
+            height: 60%;
+            background: linear-gradient(to top, rgba(80, 50, 25, 0.6) 0%, transparent 100%);
         }
 
         .hero-content {
             position: relative;
-            z-index: 10;
-            flex: 1;
+            z-index: 2;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 40px 24px 60px;
+            height: 100%;
+            padding: 80px var(--spacing-md) var(--spacing-lg);
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            font-size: 10px;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 0.1em;
+            margin-bottom: var(--spacing-sm);
+            text-transform: uppercase;
         }
 
         .hero-title {
+            font-size: 28px;
+            font-weight: 600;
             color: var(--color-white);
-            font-size: 26px;
-            font-weight: 700;
-            line-height: 1.5;
-            margin-bottom: 24px;
+            line-height: 1.4;
+            margin-bottom: var(--spacing-md);
             text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        .hero-btn {
+        .hero-cta {
             display: inline-block;
-            background-color: var(--color-primary-light);
+            background-color: var(--color-primary);
             color: var(--color-white);
-            padding: 10px 20px;
-            font-size: 12px;
-            font-weight: 600;
+            padding: 10px 22px;
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.05em;
             border-radius: var(--border-radius);
-            transition: var(--transition);
+            transition: background-color 0.2s, transform 0.2s;
             width: fit-content;
         }
 
-        .hero-btn:hover {
-            background-color: var(--color-primary);
+        .hero-cta:hover {
+            background-color: var(--color-btn-hover);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        /* Decorative furniture silhouette */
-        .hero-furniture {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 55%;
-            height: 90%;
-            z-index: 5;
-            display: flex;
-            align-items: flex-end;
-            justify-content: flex-end;
-        }
-
-        .furniture-chair {
-            width: 140px;
-            height: 160px;
-            background: linear-gradient(135deg, #C4973A 0%, #A0782A 100%);
-            border-radius: 8px 8px 0 0;
-            margin-right: 30px;
-            margin-bottom: 0;
-            position: relative;
-            box-shadow: -4px 4px 20px rgba(0,0,0,0.3);
-        }
-
-        .furniture-chair::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 10px;
-            right: 10px;
-            height: 25px;
-            background: linear-gradient(135deg, #D4A74A 0%, #B0882A 100%);
-            border-radius: 4px;
-        }
-
-        .furniture-lamp {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 8px;
-            height: 100px;
-            background: rgba(200, 160, 80, 0.6);
-        }
-
-        .furniture-lamp::before {
-            content: '';
-            position: absolute;
-            top: -15px;
-            left: -15px;
-            width: 38px;
-            height: 30px;
-            background: rgba(220, 180, 100, 0.7);
-            border-radius: 50% 50% 0 0;
-        }
-
-        /* =====================
-           SECTION 2: こだわりの精巧さ
-        ===================== */
-        .craftsmanship {
-            background-color: var(--color-white);
-            padding: 60px 24px;
-        }
-
-        .craftsmanship-inner {
-            max-width: 900px;
+        /* Section: Craftsmanship */
+        .section-craft {
+            padding: var(--spacing-xl) var(--spacing-md);
+            max-width: var(--max-width);
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 32px;
-            align-items: center;
         }
 
-        .craftsmanship-text {}
+        .craft-inner {
+            display: flex;
+            gap: var(--spacing-xl);
+            align-items: flex-start;
+        }
+
+        .craft-text {
+            flex: 1;
+            min-width: 0;
+        }
 
         .section-title {
             font-size: 22px;
             font-weight: 700;
-            line-height: 1.4;
             color: var(--color-text);
-            margin-bottom: 20px;
+            line-height: 1.4;
+            margin-bottom: var(--spacing-md);
         }
 
-        .section-desc {
-            font-size: 13px;
+        .section-body {
+            font-size: 12px;
             color: var(--color-text-light);
-            line-height: 1.8;
+            line-height: 1.9;
         }
 
-        .craftsmanship-image {
-            position: relative;
+        .craft-image {
+            flex: 0 0 220px;
+            width: 220px;
         }
 
-        .chair-image-wrapper {
+        .craft-image img {
             width: 100%;
-            max-width: 280px;
-            margin: 0 auto;
-            position: relative;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 2px;
+            background: linear-gradient(135deg, #D4A96A 0%, #C49455 40%, #9B6B35 70%, #7A4F20 100%);
         }
 
-        .chair-img-placeholder {
-            width: 100%;
-            padding-bottom: 110%;
-            background: linear-gradient(135deg, #E8D5B0 0%, #C4A870 50%, #A08040 100%);
-            border-radius: var(--border-radius);
+        /* Placeholder chair image */
+        .img-chair {
+            width: 220px;
+            height: 220px;
+            background: linear-gradient(135deg, #E8D5B0 0%, #D4B888 40%, #C49455 70%, #B8844A 100%);
+            border-radius: 2px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
-        .chair-img-placeholder::after {
+        .img-chair::before {
             content: '';
             position: absolute;
-            top: 20%;
-            left: 25%;
-            right: 15%;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 120px;
+            background: #8B6040;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .img-chair::after {
+            content: '';
+            position: absolute;
             bottom: 0;
-            background: linear-gradient(160deg, #8B6014 0%, #6B4A10 60%, #4A3008 100%);
-            border-radius: 8px 8px 4px 4px;
-            box-shadow: inset -3px 0 8px rgba(0,0,0,0.2);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 20px;
+            background: #6B4A2A;
+            border-radius: 2px;
         }
 
-        /* =====================
-           SECTION 3: 考え抜かれた機能性
-        ===================== */
-        .functionality {
-            background-color: var(--color-section-bg);
-            padding: 60px 24px;
+        /* Section: Features */
+        .section-features {
+            background-color: var(--color-bg-section);
+            padding: var(--spacing-xl) var(--spacing-md);
         }
 
-        .functionality-inner {
-            max-width: 900px;
+        .section-features-inner {
+            max-width: var(--max-width);
             margin: 0 auto;
         }
 
-        .functionality-header {
-            margin-bottom: 40px;
+        .features-header {
+            margin-bottom: var(--spacing-lg);
         }
 
-        .btn-outline {
+        .features-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--color-text);
+            line-height: 1.4;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .btn-primary {
             display: inline-block;
-            border: 1.5px solid var(--color-primary-light);
-            color: var(--color-primary);
-            padding: 8px 18px;
-            font-size: 12px;
-            font-weight: 600;
-            border-radius: var(--border-radius);
-            margin-top: 16px;
-            transition: var(--transition);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--color-primary);
+            background-color: var(--color-btn);
             color: var(--color-white);
-            border-color: var(--color-primary);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-        }
-
-        .product-card {
-            background: var(--color-white);
+            padding: 10px 22px;
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.05em;
             border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-btn-hover);
+            transform: translateY(-1px);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+        }
+
+        .feature-card {
+            background: var(--color-white);
+            border-radius: 4px;
             overflow: hidden;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-            transition: var(--transition);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .product-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
 
-        .product-img {
+        .feature-card-image {
             width: 100%;
-            height: 160px;
+            height: 140px;
             object-fit: cover;
         }
 
-        .product-img-placeholder {
+        /* Feature card image placeholders */
+        .img-stonework {
             width: 100%;
-            height: 160px;
-        }
-
-        .product-img-placeholder.stoneware {
-            background: linear-gradient(135deg, #2A2A2A 0%, #4A4A4A 40%, #6A6060 100%);
+            height: 140px;
+            background: linear-gradient(135deg, #8C8C8C 0%, #5C5C5C 40%, #3C3C3C 80%, #1C1C1C 100%);
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .product-img-placeholder.stoneware::after {
+        .img-stonework::before {
             content: '';
+            position: absolute;
             width: 60px;
-            height: 60px;
-            background: radial-gradient(circle, #888 0%, #555 100%);
+            height: 40px;
+            background: rgba(255,255,255,0.15);
             border-radius: 50%;
-            box-shadow: -20px 10px 0 #444, 20px -5px 0 #666;
+            top: 40px;
+            left: 40px;
         }
 
-        .product-img-placeholder.furniture {
-            background: linear-gradient(135deg, #A8C090 0%, #6A8A50 50%, #4A6A30 100%);
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 10px;
+        .img-furniture {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(135deg, #4A7C5A 0%, #3A6448 40%, #2A4C38 80%);
         }
 
-        .product-img-placeholder.furniture::after {
-            content: '';
-            width: 50px;
-            height: 80px;
-            background: linear-gradient(180deg, #3A5A20 0%, #2A4A10 100%);
-            border-radius: 4px 4px 0 0;
-            box-shadow: -15px 0 0 #4A6A30, 15px 0 0 #4A6A30;
+        .img-interior {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(135deg, #F5E8D8 0%, #E8D0B0 40%, #D4B888 80%);
         }
 
-        .product-img-placeholder.interior {
-            background: linear-gradient(135deg, #F0EAE0 0%, #E0D4C0 50%, #C8B898 100%);
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .feature-card-body {
+            padding: 14px var(--spacing-sm);
         }
 
-        .product-img-placeholder.interior::after {
-            content: '';
-            width: 60px;
-            height: 80px;
-            background: rgba(255,255,255,0.8);
-            border: 2px solid #CCC;
-            box-shadow: 15px 10px 0 rgba(200,180,150,0.5);
-        }
-
-        .product-info {
-            padding: 16px;
-        }
-
-        .product-name {
-            font-size: 14px;
+        .feature-card-title {
+            font-size: 13px;
             font-weight: 700;
             color: var(--color-text);
             margin-bottom: 6px;
         }
 
-        .product-desc {
-            font-size: 12px;
-            color: var(--color-text-muted);
-            line-height: 1.6;
-        }
-
-        /* =====================
-           SECTION 4: お客様の声
-        ===================== */
-        .testimonials {
-            background-color: var(--color-white);
-            padding: 60px 24px;
-        }
-
-        .testimonials-inner {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 28px;
-            margin-top: 32px;
-        }
-
-        .testimonial-card {}
-
-        .testimonial-img-placeholder {
-            width: 100%;
-            height: 180px;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            margin-bottom: 16px;
-        }
-
-        .testimonial-img-placeholder.dining {
-            background: linear-gradient(135deg, #8B6020 0%, #6B4A10 40%, #4A3008 70%, #3A2208 100%);
-            position: relative;
-        }
-
-        .testimonial-img-placeholder.sofa {
-            background: linear-gradient(135deg, #C4973A 0%, #A07828 50%, #8B6420 100%);
-        }
-
-        .testimonial-img-placeholder.kitchen {
-            background: linear-gradient(135deg, #E8E0D0 0%, #D0C4A8 50%, #B8A888 100%);
-        }
-
-        .testimonial-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .testimonial-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #C4973A, #8B6020);
-            flex-shrink: 0;
-        }
-
-        .testimonial-name {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--color-text);
-        }
-
-        .testimonial-location {
+        .feature-card-text {
             font-size: 11px;
-            color: var(--color-text-muted);
-        }
-
-        .testimonial-text {
-            font-size: 12px;
             color: var(--color-text-light);
             line-height: 1.7;
         }
 
-        /* =====================
-           SECTION 5: デザインについてお問い合わせください
-        ===================== */
-        .contact {
-            background: linear-gradient(135deg, #5C4A32 0%, #4A3828 50%, #3A2C1E 100%);
-            padding: 60px 24px;
-            position: relative;
-            overflow: hidden;
+        /* Section: Testimonials */
+        .section-testimonials {
+            padding: var(--spacing-xl) var(--spacing-md);
+            max-width: var(--max-width);
+            margin: 0 auto;
         }
 
-        .contact::before {
+        .testimonials-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .testimonial-card {
+            border-radius: 4px;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .testimonial-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        /* Testimonial image placeholders */
+        .img-test1 {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #8B5E3C 0%, #6B4428 40%, #4A2C14 80%);
+            position: relative;
+        }
+
+        .img-test1::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 60%;
-            height: 80%;
-            background: radial-gradient(ellipse at bottom right, rgba(180, 140, 80, 0.2) 0%, transparent 60%);
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect width='100' height='100' fill='%238B5E3C'/%3E%3C/svg%3E");
+        }
+
+        .img-test2 {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #C49A6C 0%, #A07848 40%, #7A5530 80%);
+        }
+
+        .img-test3 {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, #D4C4B0 0%, #C0A88C 40%, #A08060 80%);
+        }
+
+        .testimonial-body {
+            padding: 14px 0;
+        }
+
+        .testimonial-name {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: 6px;
+        }
+
+        .testimonial-rating {
+            color: var(--color-accent);
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .testimonial-text {
+            font-size: 11px;
+            color: var(--color-text-light);
+            line-height: 1.7;
+        }
+
+        /* Section: Contact / Footer */
+        .section-contact {
+            background-color: var(--color-bg-dark);
+            padding: var(--spacing-xl) var(--spacing-md);
+            position: relative;
         }
 
         .contact-inner {
-            max-width: 900px;
+            max-width: var(--max-width);
             margin: 0 auto;
-            position: relative;
-            z-index: 2;
+        }
+
+        .contact-header {
+            margin-bottom: var(--spacing-xl);
         }
 
         .contact-title {
@@ -535,281 +518,347 @@
             font-weight: 700;
             color: var(--color-white);
             line-height: 1.5;
-            margin-bottom: 40px;
         }
 
-        .contact-info-grid {
+        .contact-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .contact-info-item {}
-
-        .contact-label {
-            font-size: 11px;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 4px;
-            letter-spacing: 0.05em;
+        .contact-item-label {
+            font-size: 10px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+            text-transform: uppercase;
         }
 
-        .contact-value {
-            font-size: 13px;
+        .contact-item-value {
+            font-size: 12px;
             color: var(--color-white);
-            font-weight: 500;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* =====================
-           FOOTER IMAGE BAND
-        ===================== */
-        .footer-band {
-            height: 80px;
-            background: linear-gradient(135deg, #8B7040 0%, #6B5030 40%, #4A3820 100%);
-            position: relative;
-            overflow: hidden;
+        .contact-item-value a {
+            color: var(--color-white);
+            text-decoration: none;
         }
 
-        .footer-band::after {
-            content: '';
+        .contact-item-value a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Contact bottom image overlay */
+        .contact-bottom-image {
             position: absolute;
             bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 60px;
-            background: radial-gradient(ellipse, rgba(180, 140, 80, 0.4) 0%, transparent 70%);
+            right: 0;
+            width: 280px;
+            height: 120px;
+            background: linear-gradient(135deg, #8B6040 0%, #6B4428 50%, #4A2C14 100%);
+            opacity: 0.4;
+            border-radius: 4px 0 0 0;
         }
 
-        /* =====================
-           RESPONSIVE - TABLET
-        ===================== */
-        @media (min-width: 600px) {
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                height: 380px;
+            }
+
             .hero-title {
-                font-size: 30px;
+                font-size: 22px;
             }
 
-            .hero-nav-links {
-                display: flex;
+            .craft-inner {
+                flex-direction: column;
             }
 
-            .craftsmanship-inner {
-                grid-template-columns: 1fr 1fr;
+            .craft-image {
+                flex: none;
+                width: 100%;
             }
 
-            .product-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .img-chair {
+                width: 100%;
+                height: 200px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
             }
 
             .testimonials-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
             }
 
-            .contact-info-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
             }
 
-            .chair-image-wrapper {
-                max-width: 100%;
+            .section-title,
+            .features-title,
+            .testimonials-title,
+            .contact-title {
+                font-size: 18px;
             }
         }
 
-        @media (min-width: 900px) {
-            .hero {
-                min-height: 500px;
+        @media (min-width: 480px) and (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .hero-title {
-                font-size: 36px;
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 769px) {
+            body {
+                font-size: 14px;
+            }
+
+            nav {
+                padding: 24px 40px;
             }
 
             .hero-content {
-                padding: 60px 48px 80px;
-                max-width: 55%;
+                padding: 100px 40px var(--spacing-xl);
             }
 
-            .hero-nav {
-                padding: 20px 48px;
+            .section-craft {
+                padding: var(--spacing-xxl) 40px;
             }
 
-            .craftsmanship {
-                padding: 80px 48px;
+            .section-features {
+                padding: var(--spacing-xxl) 40px;
             }
 
-            .section-title {
-                font-size: 26px;
+            .section-features-inner {
+                padding: 0;
             }
 
-            .functionality {
-                padding: 80px 48px;
+            .section-testimonials {
+                padding: var(--spacing-xxl) 40px;
             }
 
-            .testimonials {
-                padding: 80px 48px;
-            }
-
-            .contact {
-                padding: 80px 48px;
-            }
-
-            .contact-title {
-                font-size: 28px;
+            .section-contact {
+                padding: var(--spacing-xxl) 40px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== HERO SECTION ===== -->
-    <section class="hero">
-        <nav class="hero-nav">
-            <div class="hero-logo">
-                カスタム<br>＆スタック
-            </div>
-            <ul class="hero-nav-links">
+    <!-- Navigation -->
+    <header>
+        <nav>
+            <a href="#" class="nav-logo">
+                カスタム<br>
+                <span>＆クラフト</span>
+            </a>
+            <ul class="nav-links">
                 <li><a href="#">ホーム</a></li>
                 <li><a href="#">製品</a></li>
-                <li><a href="#">について</a></li>
+                <li><a href="#">コンセプト</a></li>
                 <li><a href="#">お問い合わせ</a></li>
             </ul>
         </nav>
+    </header>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="wood-slats"></div>
+        <div class="hero-room-image"></div>
+        <div class="hero-bg"></div>
         <div class="hero-content">
+            <p class="hero-label">カスタム ＆ クラフト</p>
             <h1 class="hero-title">
                 お住まいに<br>
                 手作りインテリアを
             </h1>
-            <a href="#" class="hero-btn">もっと見る →</a>
-        </div>
-
-        <!-- Decorative element -->
-        <div class="hero-furniture">
-            <div class="furniture-lamp"></div>
-            <div class="furniture-chair"></div>
+            <a href="#" class="hero-cta">ショップへ進む</a>
         </div>
     </section>
 
-
-    <!-- ===== CRAFTSMANSHIP SECTION ===== -->
-    <section class="craftsmanship">
-        <div class="craftsmanship-inner">
-            <div class="craftsmanship-text">
-                <h2 class="section-title">
-                    こだわりの<br>精巧さ
-                </h2>
-                <p class="section-desc">
-                    今まで培ってきた家具のカスタム&スタックの製品は、どれも職人技で、独特の一貫を追い求めています。自然の木材や本革などの上質な素材を選びこんで、ひとつひとつ丁寧に製作しています。熟練した職人がその経験と技術を活かして、機能美に優れた暮らしを提案し、職人の心が込められた家具と個性的なインテリアで、ひとりひとりにある空間を演出します。
-                </p>
-            </div>
-            <div class="craftsmanship-image">
-                <div class="chair-image-wrapper">
-                    <div class="chair-img-placeholder">
-                        <!-- Folding chair visual representation -->
-                        <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%">
-                            <!-- Chair seat -->
-                            <rect x="50" y="80" width="100" height="12" rx="3" fill="#8B5E20" opacity="0.9"/>
-                            <!-- Chair back slats -->
-                            <rect x="60" y="30" width="8" height="52" rx="2" fill="#A06830"/>
-                            <rect x="74" y="25" width="8" height="57" rx="2" fill="#9A6228"/>
-                            <rect x="88" y="22" width="8" height="60" rx="2" fill="#A06830"/>
-                            <rect x="102" y="25" width="8" height="57" rx="2" fill="#9A6228"/>
-                            <rect x="116" y="30" width="8" height="52" rx="2" fill="#A06830"/>
-                            <!-- Back top rail -->
-                            <rect x="55" y="22" width="80" height="10" rx="3" fill="#8B5E20"/>
-                            <!-- Back bottom rail -->
-                            <rect x="55" y="74" width="80" height="10" rx="3" fill="#8B5E20"/>
-                            <!-- Front legs -->
-                            <rect x="58" y="92" width="10" height="100" rx="3" fill="#7A5018"/>
-                            <rect x="128" y="92" width="10" height="100" rx="3" fill="#7A5018"/>
-                            <!-- Back legs -->
-                            <rect x="62" y="92" width="8" height="90" rx="2" fill="#6A4010" transform="rotate(-8, 66, 92)"/>
-                            <rect x="122" y="92" width="8" height="90" rx="2" fill="#6A4010" transform="rotate(8, 126, 92)"/>
-                            <!-- Cross brace -->
-                            <rect x="62" y="150" width="72" height="7" rx="2" fill="#8B5E20"/>
-                        </svg>
-                    </div>
+    <!-- Craftsmanship Section -->
+    <section>
+        <div class="section-craft">
+            <div class="craft-inner">
+                <div class="craft-text">
+                    <h2 class="section-title">
+                        こだわりの<br>
+                        精巧さ
+                    </h2>
+                    <p class="section-body">
+                        当サイトで販売活動のカスタム＆クラフトの製品は、<br>
+                        どれも精巧に手作りで一品一番を縫い上げています。<br>
+                        木材、布地、金属などあらゆる素材を用いて、<br>
+                        インテリアデザインに拘った作品を世の中にお届けしています。素材<br>
+                        を独自にたどり、独自スキルでを立ち上げて来た職人と<br>
+                        職人の技術で、ひとつとして同じに仕上げています。
+                    </p>
+                </div>
+                <div class="craft-image">
+                    <div class="img-chair" role="img" aria-label="木製の折り畳み椅子"></div>
                 </div>
             </div>
         </div>
     </section>
 
-
-    <!-- ===== FUNCTIONALITY SECTION ===== -->
-    <section class="functionality">
-        <div class="functionality-inner">
-            <div class="functionality-header">
-                <h2 class="section-title">
-                    考え抜かれた<br>機能性
+    <!-- Features Section -->
+    <section class="section-features">
+        <div class="section-features-inner">
+            <div class="features-header">
+                <h2 class="features-title">
+                    考え抜かれた<br>
+                    機能性
                 </h2>
-                <a href="#" class="btn-outline">詳細はこちら</a>
+                <a href="#" class="btn-primary">製品を見る</a>
             </div>
 
-            <div class="product-grid">
-                <!-- Product 1: Stoneware -->
-                <div class="product-card">
-                    <div class="product-img-placeholder stoneware">
-                        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0">
-                            <rect width="200" height="160" fill="#1A1A1A"/>
-                            <!-- Plate/dish -->
-                            <ellipse cx="80" cy="85" rx="45" ry="45" fill="#333"/>
-                            <ellipse cx="80" cy="85" rx="38" ry="38" fill="#3D3A38"/>
-                            <ellipse cx="80" cy="85" rx="28" ry="28" fill="#2A2826"/>
-                            <!-- Fork -->
-                            <rect x="130" y="40" width="6" height="80" rx="3" fill="#888"/>
-                            <rect x="128" y="40" width="2" height="30" rx="1" fill="#888"/>
-                            <rect x="136" y="40" width="2" height="30" rx="1" fill="#888"/>
-                            <!-- Knife -->
-                            <rect x="145" y="40" width="5" height="80" rx="2" fill="#999"/>
-                            <path d="M145 40 L152 55 L150 120 L145 120 Z" fill="#AAA"/>
-                        </svg>
+            <div class="features-grid">
+                <!-- Stonework Card -->
+                <article class="feature-card">
+                    <div class="img-stonework" role="img" aria-label="ストーンウェア食器"></div>
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title">ストーンウェア食器</h3>
+                        <p class="feature-card-text">
+                            和心から生まれた美しい<br>
+                            購入お客さまへデザイン
+                        </p>
                     </div>
-                    <div class="product-info">
-                        <h3 class="product-name">ストーンウェア食器</h3>
-                        <p class="product-desc">自然な風合いを大切にした、<br>職人のハンドメイドデザイン</p>
+                </article>
+
+                <!-- Furniture Card -->
+                <article class="feature-card">
+                    <div class="img-furniture" role="img" aria-label="家具"></div>
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title">家具</h3>
+                        <p class="feature-card-text">
+                            カタログで発掘できた美しい<br>
+                            家具は、どんな空間にも
+                        </p>
                     </div>
+                </article>
+
+                <!-- Interior Card -->
+                <article class="feature-card">
+                    <div class="img-interior" role="img" aria-label="インテリア"></div>
+                    <div class="feature-card-body">
+                        <h3 class="feature-card-title">インテリア</h3>
+                        <p class="feature-card-text">
+                            お部屋で置くだけで、<br>
+                            より洗練されたスタイルに
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section>
+        <div class="section-testimonials">
+            <h2 class="testimonials-title">お客様の声</h2>
+
+            <div class="testimonials-grid">
+                <!-- Testimonial 1 -->
+                <article class="testimonial-card">
+                    <div class="img-test1" role="img" aria-label="お客様の写真1"></div>
+                    <div class="testimonial-body">
+                        <p class="testimonial-name">北村 義明 様</p>
+                        <p class="testimonial-rating">★★★★★</p>
+                        <p class="testimonial-text">
+                            お気に入りの商品で毎日使っています。<br>
+                            素材の質感がとても良く、長く使えそうで<br>
+                            購入して本当に良かったと思っています。
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Testimonial 2 -->
+                <article class="testimonial-card">
+                    <div class="img-test2" role="img" aria-label="お客様の写真2"></div>
+                    <div class="testimonial-body">
+                        <p class="testimonial-name">和田 正明 様</p>
+                        <p class="testimonial-rating">★★★★★</p>
+                        <p class="testimonial-text">
+                            インテリアについて相談したところ、<br>
+                            的確なアドバイスをいただき、部屋が<br>
+                            素敵に変わりました。ありがとうございます。
+                        </p>
+                    </div>
+                </article>
+
+                <!-- Testimonial 3 -->
+                <article class="testimonial-card">
+                    <div class="img-test3" role="img" aria-label="お客様の写真3"></div>
+                    <div class="testimonial-body">
+                        <p class="testimonial-name">有村 弘子 様</p>
+                        <p class="testimonial-rating">★★★★★</p>
+                        <p class="testimonial-text">
+                            「手作りのインテリアでこんなにも変わるなんて」<br>
+                            と驚いています。和モダンな空間に仕上がり<br>
+                            家族全員がとても喜んでいます。
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Footer Section -->
+    <footer class="section-contact">
+        <div class="contact-inner">
+            <div class="contact-header">
+                <h2 class="contact-title">
+                    デザインについて<br>
+                    お問い合わせください
+                </h2>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <p class="contact-item-label">住所</p>
+                    <address class="contact-item-value" style="font-style:normal;">
+                        〒123-4567<br>
+                        東京都渋谷区代々木 2-3
+                    </address>
                 </div>
 
-                <!-- Product 2: Furniture -->
-                <div class="product-card">
-                    <div class="product-img-placeholder furniture">
-                        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0">
-                            <rect width="200" height="160" fill="#8FBC6A"/>
-                            <!-- Chair simplified -->
-                            <rect x="75" y="55" width="50" height="8" rx="2" fill="#3A5A20"/>
-                            <rect x="70" y="63" width="60" height="6" rx="2" fill="#3A5A20"/>
-                            <rect x="78" y="69" width="8" height="55" rx="2" fill="#2A4A10"/>
-                            <rect x="114" y="69" width="8" height="55" rx="2" fill="#2A4A10"/>
-                            <rect x="79" y="100" width="42" height="6" rx="2" fill="#3A5A20"/>
-                            <!-- Chair back -->
-                            <rect x="82" y="20" width="8" height="37" rx="2" fill="#4A6A30"/>
-                            <rect x="96" y="16" width="8" height="41" rx="2" fill="#4A6A30"/>
-                            <rect x="110" y="20" width="8" height="37" rx="2" fill="#4A6A30"/>
-                            <rect x="79" y="14" width="42" height="8" rx="2" fill="#3A5A20"/>
-                        </svg>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-name">家具</h3>
-                        <p class="product-desc">カスタムで製作された木の家具と、どんな空間にも馴染むスタイル</p>
-                    </div>
+                <div class="contact-item">
+                    <p class="contact-item-label">メールアドレス</p>
+                    <p class="contact-item-value">
+                        <a href="mailto:hello@naturalkitara.co.jp">
+                            hello@naturalkitara.co.jp
+                        </a>
+                    </p>
                 </div>
 
-                <!-- Product 3: Interior -->
-                <div class="product-card">
-                    <div class="product-img-placeholder interior">
-                        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0">
-                            <rect width="200" height="160" fill="#F5EEE5"/>
-                            <!-- Picture frame 1 -->
-                            <rect x="50" y="20" width="65" height="85" rx="3" fill="white" stroke="#DDD" stroke-width="2"/>
-                            <rect x="55" y="25" width="55" height="75" rx="2" fill="#F0E8D8"/>
-                            <!-- Simple leaf drawing in frame -->
-                            <ellipse cx="82" cy="62" rx="18" ry="30" fill="#C8D8B0" opacity="0.7" transform="rotate(-15,82,62)"/>
-                            <line x1="82" y1="90" x2="82" y2="30" stroke="#8A9A70" stroke-width="2"/>
-                            <!-- Small frame 2 -->
-                            <rect x="120" y="30" width="50" height="65" rx="3" fill="white" stroke="#DDD" stroke-width="2"/>
-                            <rect x="124" y="34" width="42" height="57" rx="2" fill="#E8E0D0"/>
-                            <!-- Abstract lines in frame 2 -->
-                            <line x1="130" y1="45" x2="160" y2="45" stroke="#CCC" stroke-width="1.5"/>
-                            <line x1="130" y1="55" x2="155" y2="55" stroke="#CCC" stroke-width="1.5"/>
-                            <line x1="130" y1="65" x2="158" y2="65" stroke="#CCC" stroke-width="1.5"/>
-                            <line x1="130" y1="75" x2="150" y2="75" stroke="#CCC" stroke-width="1.5"/>
-                            <!-- Shelf line
+                <div class="contact-item">
+                    <p class="contact-item-label">電話番号</p>
+                    <p class="contact-item-value">
+                        <a href="tel:+81234567899">
+                            42-2345-6789
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="contact-bottom-image"></div>
+    </footer>
+
+</body>
+</html>

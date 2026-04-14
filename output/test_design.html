@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>カスタム＆クラフト - お住まいに手作りインテリアを</title>
+    <title>カスタム＆スタック - お住まいに手作りインテリアを</title>
     <style>
         /* CSS Custom Properties */
         :root {
             --color-primary: #8B6914;
-            --color-primary-light: #C4952A;
+            --color-primary-light: #C4973A;
             --color-bg: #FAF8F5;
             --color-bg-dark: #4A3728;
-            --color-text: #2C2C2C;
+            --color-text: #333333;
             --color-text-light: #666666;
-            --color-text-muted: #999999;
-            --color-white: #FFFFFF;
-            --color-hero-overlay: rgba(0, 0, 0, 0.3);
-            --font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 1rem;
-            --spacing-md: 1.5rem;
-            --spacing-lg: 2rem;
-            --spacing-xl: 3rem;
-            --spacing-xxl: 5rem;
+            --color-text-muted: #888888;
+            --color-white: #ffffff;
+            --color-section-bg: #F5F0E8;
+            --color-dark-section: #5C4A32;
+            --font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 48px;
+            --spacing-xl: 80px;
             --border-radius: 4px;
             --transition: all 0.3s ease;
         }
@@ -42,7 +42,7 @@
             font-family: var(--font-family);
             background-color: var(--color-bg);
             color: var(--color-text);
-            line-height: 1.6;
+            line-height: 1.7;
             font-size: 14px;
         }
 
@@ -57,200 +57,206 @@
             color: inherit;
         }
 
-        /* =============================
-           NAVIGATION
-        ============================= */
-        nav {
+        /* =====================
+           HEADER / HERO SECTION
+        ===================== */
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 420px;
+            background: linear-gradient(135deg, #8B7355 0%, #6B5240 30%, #4A3728 60%, #3D2E1E 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 100;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 12px,
+                    rgba(0,0,0,0.08) 12px,
+                    rgba(0,0,0,0.08) 14px
+                );
+            z-index: 1;
+        }
+
+        /* Wood texture overlay */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at 70% 50%, rgba(180, 140, 80, 0.3) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 80%, rgba(100, 70, 40, 0.4) 0%, transparent 50%);
+            z-index: 2;
+        }
+
+        .hero-nav {
+            position: relative;
+            z-index: 10;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: var(--spacing-sm) var(--spacing-lg);
+            padding: 16px 24px;
         }
 
-        .nav-logo {
+        .hero-logo {
             color: var(--color-white);
-            font-size: 0.75rem;
+            font-size: 11px;
             font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: 0.05em;
-        }
-
-        .nav-logo span {
-            display: block;
-            font-size: 0.65rem;
-            font-weight: 400;
+            line-height: 1.3;
             opacity: 0.9;
         }
 
-        .nav-links {
-            display: flex;
-            gap: var(--spacing-md);
+        .hero-nav-links {
+            display: none;
             list-style: none;
+            gap: 24px;
         }
 
-        .nav-links a {
+        .hero-nav-links a {
             color: var(--color-white);
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            opacity: 0.9;
+            font-size: 12px;
+            opacity: 0.85;
             transition: var(--transition);
         }
 
-        .nav-links a:hover {
+        .hero-nav-links a:hover {
             opacity: 1;
-        }
-
-        /* =============================
-           HERO SECTION
-        ============================= */
-        .hero {
-            position: relative;
-            min-height: 420px;
-            display: flex;
-            align-items: flex-end;
-            overflow: hidden;
-            background: linear-gradient(135deg, #5C4033 0%, #3E2723 40%, #8D6E63 100%);
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background: 
-                linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.4) 100%),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100" height="100" fill="%235C4033"/><rect x="10" y="0" width="3" height="100" fill="%234A3728" opacity="0.5"/><rect x="25" y="0" width="2" height="100" fill="%234A3728" opacity="0.4"/><rect x="40" y="0" width="4" height="100" fill="%234A3728" opacity="0.3"/><rect x="58" y="0" width="2" height="100" fill="%234A3728" opacity="0.5"/><rect x="72" y="0" width="3" height="100" fill="%234A3728" opacity="0.4"/><rect x="85" y="0" width="2" height="100" fill="%234A3728" opacity="0.3"/></svg>') repeat;
-            background-size: auto, 100px 100px;
-        }
-
-        /* Decorative wood panel lines */
-        .hero-wood-panels {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 45%;
-            overflow: hidden;
-        }
-
-        .hero-wood-panels::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: repeating-linear-gradient(
-                90deg,
-                transparent 0px,
-                transparent 18px,
-                rgba(60,30,10,0.3) 18px,
-                rgba(60,30,10,0.3) 20px
-            ),
-            linear-gradient(180deg, #7D5A3C 0%, #5C3D1E 50%, #8B6343 100%);
-        }
-
-        .hero-furniture {
-            position: absolute;
-            right: 5%;
-            bottom: 0;
-            width: 40%;
-            height: 85%;
-            background: transparent;
-        }
-
-        /* Sofa illustration */
-        .hero-sofa {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 300px;
-            height: 160px;
-        }
-
-        .hero-sofa::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 20px;
-            right: 20px;
-            height: 80px;
-            background: #D4B896;
-            border-radius: 8px 8px 0 0;
-        }
-
-        .hero-sofa::after {
-            content: '';
-            position: absolute;
-            bottom: 60px;
-            left: 0;
-            right: 0;
-            height: 90px;
-            background: #C8A882;
-            border-radius: 8px;
         }
 
         .hero-content {
             position: relative;
             z-index: 10;
-            padding: var(--spacing-xl) var(--spacing-lg);
-            max-width: 50%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 24px 60px;
         }
 
         .hero-title {
             color: var(--color-white);
-            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            font-size: 26px;
             font-weight: 700;
-            line-height: 1.3;
-            margin-bottom: var(--spacing-md);
-            letter-spacing: 0.02em;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
         .hero-btn {
             display: inline-block;
             background-color: var(--color-primary-light);
             color: var(--color-white);
-            padding: 0.6rem 1.5rem;
+            padding: 10px 20px;
+            font-size: 12px;
+            font-weight: 600;
             border-radius: var(--border-radius);
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
             transition: var(--transition);
-            font-weight: 500;
+            width: fit-content;
         }
 
         .hero-btn:hover {
             background-color: var(--color-primary);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(139, 105, 20, 0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
-        /* =============================
-           SECTION: CRAFTSMANSHIP
-        ============================= */
-        .section-craftsmanship {
-            padding: var(--spacing-xxl) var(--spacing-lg);
+        /* Decorative furniture silhouette */
+        .hero-furniture {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 55%;
+            height: 90%;
+            z-index: 5;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+        }
+
+        .furniture-chair {
+            width: 140px;
+            height: 160px;
+            background: linear-gradient(135deg, #C4973A 0%, #A0782A 100%);
+            border-radius: 8px 8px 0 0;
+            margin-right: 30px;
+            margin-bottom: 0;
+            position: relative;
+            box-shadow: -4px 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .furniture-chair::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            right: 10px;
+            height: 25px;
+            background: linear-gradient(135deg, #D4A74A 0%, #B0882A 100%);
+            border-radius: 4px;
+        }
+
+        .furniture-lamp {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 8px;
+            height: 100px;
+            background: rgba(200, 160, 80, 0.6);
+        }
+
+        .furniture-lamp::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            width: 38px;
+            height: 30px;
+            background: rgba(220, 180, 100, 0.7);
+            border-radius: 50% 50% 0 0;
+        }
+
+        /* =====================
+           SECTION 2: こだわりの精巧さ
+        ===================== */
+        .craftsmanship {
             background-color: var(--color-white);
+            padding: 60px 24px;
         }
 
         .craftsmanship-inner {
             max-width: 900px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--spacing-xl);
+            grid-template-columns: 1fr;
+            gap: 32px;
             align-items: center;
         }
 
-        .craftsmanship-text h2 {
-            font-size: clamp(1.4rem, 3vw, 1.8rem);
+        .craftsmanship-text {}
+
+        .section-title {
+            font-size: 22px;
             font-weight: 700;
+            line-height: 1.4;
             color: var(--color-text);
-            margin-bottom: var(--spacing-md);
-            line-height: 1.3;
+            margin-bottom: 20px;
         }
 
-        .craftsmanship-text p {
-            font-size: 0.8rem;
+        .section-desc {
+            font-size: 13px;
             color: var(--color-text-light);
             line-height: 1.8;
         }
@@ -259,507 +265,408 @@
             position: relative;
         }
 
-        .craftsmanship-image img {
+        .chair-image-wrapper {
             width: 100%;
-            height: 280px;
-            object-fit: cover;
-            border-radius: var(--border-radius);
-        }
-
-        /* Folding chair image placeholder */
-        .img-placeholder {
-            width: 100%;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            background: #f0ebe3;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .img-chair {
-            height: 260px;
-            background: linear-gradient(135deg, #F5ECD7 0%, #E8D5B7 100%);
+            max-width: 280px;
+            margin: 0 auto;
             position: relative;
         }
 
-        /* Chair SVG */
-        .chair-svg {
+        .chair-img-placeholder {
             width: 100%;
-            height: 100%;
+            padding-bottom: 110%;
+            background: linear-gradient(135deg, #E8D5B0 0%, #C4A870 50%, #A08040 100%);
+            border-radius: var(--border-radius);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
-        /* =============================
-           SECTION: FUNCTIONALITY
-        ============================= */
-        .section-functionality {
-            padding: var(--spacing-xxl) var(--spacing-lg);
-            background-color: var(--color-bg);
+        .chair-img-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            right: 15%;
+            bottom: 0;
+            background: linear-gradient(160deg, #8B6014 0%, #6B4A10 60%, #4A3008 100%);
+            border-radius: 8px 8px 4px 4px;
+            box-shadow: inset -3px 0 8px rgba(0,0,0,0.2);
         }
 
-        .section-functionality .section-inner {
+        /* =====================
+           SECTION 3: 考え抜かれた機能性
+        ===================== */
+        .functionality {
+            background-color: var(--color-section-bg);
+            padding: 60px 24px;
+        }
+
+        .functionality-inner {
             max-width: 900px;
             margin: 0 auto;
         }
 
-        .section-header {
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .section-header h2 {
-            font-size: clamp(1.3rem, 3vw, 1.7rem);
-            font-weight: 700;
-            color: var(--color-text);
-            line-height: 1.3;
-            margin-bottom: var(--spacing-md);
+        .functionality-header {
+            margin-bottom: 40px;
         }
 
         .btn-outline {
             display: inline-block;
             border: 1.5px solid var(--color-primary-light);
-            color: var(--color-primary-light);
-            padding: 0.5rem 1.3rem;
+            color: var(--color-primary);
+            padding: 8px 18px;
+            font-size: 12px;
+            font-weight: 600;
             border-radius: var(--border-radius);
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
+            margin-top: 16px;
             transition: var(--transition);
         }
 
         .btn-outline:hover {
-            background-color: var(--color-primary-light);
+            background-color: var(--color-primary);
             color: var(--color-white);
+            border-color: var(--color-primary);
         }
 
-        .products-grid {
+        .product-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-lg);
+            grid-template-columns: 1fr;
+            gap: 24px;
         }
 
         .product-card {
             background: var(--color-white);
             border-radius: var(--border-radius);
             overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
             transition: var(--transition);
         }
 
         .product-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
         }
 
-        .product-card-image {
+        .product-img {
             width: 100%;
-            height: 150px;
+            height: 160px;
             object-fit: cover;
         }
 
-        .product-card-img-placeholder {
+        .product-img-placeholder {
             width: 100%;
-            height: 150px;
+            height: 160px;
+        }
+
+        .product-img-placeholder.stoneware {
+            background: linear-gradient(135deg, #2A2A2A 0%, #4A4A4A 40%, #6A6060 100%);
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .product-card-img-1 {
-            background: linear-gradient(135deg, #E8E0D5 0%, #D4C9B8 100%);
+        .product-img-placeholder.stoneware::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #888 0%, #555 100%);
+            border-radius: 50%;
+            box-shadow: -20px 10px 0 #444, 20px -5px 0 #666;
         }
 
-        .product-card-img-2 {
-            background: linear-gradient(135deg, #2D4A3E 0%, #1A3028 100%);
+        .product-img-placeholder.furniture {
+            background: linear-gradient(135deg, #A8C090 0%, #6A8A50 50%, #4A6A30 100%);
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 10px;
         }
 
-        .product-card-img-3 {
-            background: linear-gradient(135deg, #F0E8E0 0%, #E8D8CC 100%);
+        .product-img-placeholder.furniture::after {
+            content: '';
+            width: 50px;
+            height: 80px;
+            background: linear-gradient(180deg, #3A5A20 0%, #2A4A10 100%);
+            border-radius: 4px 4px 0 0;
+            box-shadow: -15px 0 0 #4A6A30, 15px 0 0 #4A6A30;
         }
 
-        .product-card-body {
-            padding: var(--spacing-sm);
+        .product-img-placeholder.interior {
+            background: linear-gradient(135deg, #F0EAE0 0%, #E0D4C0 50%, #C8B898 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .product-card-body h3 {
-            font-size: 0.85rem;
-            font-weight: 600;
+        .product-img-placeholder.interior::after {
+            content: '';
+            width: 60px;
+            height: 80px;
+            background: rgba(255,255,255,0.8);
+            border: 2px solid #CCC;
+            box-shadow: 15px 10px 0 rgba(200,180,150,0.5);
+        }
+
+        .product-info {
+            padding: 16px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 700;
             color: var(--color-text);
-            margin-bottom: var(--spacing-xs);
+            margin-bottom: 6px;
         }
 
-        .product-card-body p {
-            font-size: 0.73rem;
-            color: var(--color-text-light);
+        .product-desc {
+            font-size: 12px;
+            color: var(--color-text-muted);
             line-height: 1.6;
         }
 
-        /* =============================
-           SECTION: TESTIMONIALS
-        ============================= */
-        .section-testimonials {
-            padding: var(--spacing-xxl) var(--spacing-lg);
+        /* =====================
+           SECTION 4: お客様の声
+        ===================== */
+        .testimonials {
             background-color: var(--color-white);
+            padding: 60px 24px;
         }
 
-        .section-testimonials .section-inner {
+        .testimonials-inner {
             max-width: 900px;
             margin: 0 auto;
-        }
-
-        .section-testimonials h2 {
-            font-size: clamp(1.3rem, 3vw, 1.7rem);
-            font-weight: 700;
-            color: var(--color-text);
-            margin-bottom: var(--spacing-xl);
         }
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-md);
+            grid-template-columns: 1fr;
+            gap: 28px;
+            margin-top: 32px;
         }
 
-        .testimonial-card {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-sm);
-        }
-
-        .testimonial-image {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-radius: var(--border-radius);
-        }
+        .testimonial-card {}
 
         .testimonial-img-placeholder {
             width: 100%;
-            height: 160px;
+            height: 180px;
             border-radius: var(--border-radius);
             overflow: hidden;
+            margin-bottom: 16px;
         }
 
-        .testimonial-img-1 {
-            background: linear-gradient(135deg, #8B6914 0%, #5C4033 100%);
+        .testimonial-img-placeholder.dining {
+            background: linear-gradient(135deg, #8B6020 0%, #6B4A10 40%, #4A3008 70%, #3A2208 100%);
+            position: relative;
         }
 
-        .testimonial-img-2 {
-            background: linear-gradient(135deg, #C4952A 0%, #8B6343 100%);
+        .testimonial-img-placeholder.sofa {
+            background: linear-gradient(135deg, #C4973A 0%, #A07828 50%, #8B6420 100%);
         }
 
-        .testimonial-img-3 {
-            background: linear-gradient(135deg, #E8E0D5 0%, #D0C0A8 100%);
+        .testimonial-img-placeholder.kitchen {
+            background: linear-gradient(135deg, #E8E0D0 0%, #D0C4A8 50%, #B8A888 100%);
+        }
+
+        .testimonial-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .testimonial-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #C4973A, #8B6020);
+            flex-shrink: 0;
         }
 
         .testimonial-name {
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 13px;
+            font-weight: 700;
             color: var(--color-text);
         }
 
-        .testimonial-role {
-            font-size: 0.7rem;
+        .testimonial-location {
+            font-size: 11px;
             color: var(--color-text-muted);
-            margin-top: -0.3rem;
         }
 
         .testimonial-text {
-            font-size: 0.73rem;
+            font-size: 12px;
             color: var(--color-text-light);
             line-height: 1.7;
         }
 
-        /* =============================
-           SECTION: CONTACT / CTA
-        ============================= */
-        .section-contact {
-            background: var(--color-bg-dark);
-            padding: var(--spacing-xxl) var(--spacing-lg);
+        /* =====================
+           SECTION 5: デザインについてお問い合わせください
+        ===================== */
+        .contact {
+            background: linear-gradient(135deg, #5C4A32 0%, #4A3828 50%, #3A2C1E 100%);
+            padding: 60px 24px;
             position: relative;
             overflow: hidden;
         }
 
-        .section-contact::before {
+        .contact::before {
             content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #3E2A1A 0%, #4A3020 50%, #5C3D20 100%);
-            opacity: 0.8;
-        }
-
-        /* Decorative food/plant in corner */
-        .section-contact-decoration {
             position: absolute;
             bottom: 0;
             right: 0;
-            width: 35%;
-            height: 100%;
-            background: linear-gradient(135deg, #6B4226 0%, #8B5A2B 100%);
-            clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
-            opacity: 0.6;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(ellipse at bottom right, rgba(180, 140, 80, 0.2) 0%, transparent 60%);
         }
 
-        .section-contact .section-inner {
-            position: relative;
-            z-index: 10;
+        .contact-inner {
             max-width: 900px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
-        .section-contact h2 {
-            color: var(--color-white);
-            font-size: clamp(1.3rem, 3vw, 1.8rem);
+        .contact-title {
+            font-size: 22px;
             font-weight: 700;
-            line-height: 1.4;
-            margin-bottom: var(--spacing-xl);
+            color: var(--color-white);
+            line-height: 1.5;
+            margin-bottom: 40px;
         }
 
         .contact-info-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: var(--spacing-lg);
+            grid-template-columns: 1fr;
+            gap: 24px;
         }
 
-        .contact-info-item h4 {
-            color: rgba(255,255,255,0.7);
-            font-size: 0.7rem;
-            font-weight: 400;
-            margin-bottom: var(--spacing-xs);
+        .contact-info-item {}
+
+        .contact-label {
+            font-size: 11px;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 4px;
             letter-spacing: 0.05em;
         }
 
-        .contact-info-item p {
+        .contact-value {
+            font-size: 13px;
             color: var(--color-white);
-            font-size: 0.8rem;
+            font-weight: 500;
             line-height: 1.6;
         }
 
-        .contact-info-item a {
-            color: var(--color-white);
-            transition: var(--transition);
+        /* =====================
+           FOOTER IMAGE BAND
+        ===================== */
+        .footer-band {
+            height: 80px;
+            background: linear-gradient(135deg, #8B7040 0%, #6B5030 40%, #4A3820 100%);
+            position: relative;
+            overflow: hidden;
         }
 
-        .contact-info-item a:hover {
-            color: var(--color-primary-light);
+        .footer-band::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 60px;
+            background: radial-gradient(ellipse, rgba(180, 140, 80, 0.4) 0%, transparent 70%);
         }
 
-        /* =============================
-           PRODUCT IMAGES (SVG-based)
-        ============================= */
-        /* Cutlery icon for stoneware */
-        .icon-cutlery {
-            color: #8B7355;
-        }
-
-        /* Chair icon */
-        .icon-chair {
-            color: #2D4A3E;
-        }
-
-        /* Interior icon */
-        .icon-interior {
-            color: #B8997A;
-        }
-
-        /* =============================
-           RESPONSIVE
-        ============================= */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+        /* =====================
+           RESPONSIVE - TABLET
+        ===================== */
+        @media (min-width: 600px) {
+            .hero-title {
+                font-size: 30px;
             }
 
-            .hero-content {
-                max-width: 100%;
-            }
-
-            .hero-wood-panels {
-                display: none;
+            .hero-nav-links {
+                display: flex;
             }
 
             .craftsmanship-inner {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
             }
 
-            .products-grid {
-                grid-template-columns: 1fr;
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
 
             .testimonials-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(3, 1fr);
             }
 
             .contact-info-grid {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-md);
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .chair-image-wrapper {
+                max-width: 100%;
             }
         }
 
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
+        @media (min-width: 900px) {
+            .hero {
+                min-height: 500px;
             }
 
-            .testimonials-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .hero-title {
+                font-size: 36px;
             }
-        }
 
-        /* =============================
-           DECORATIVE ELEMENTS
-        ============================= */
-        /* Lamp in hero */
-        .hero-lamp {
-            position: absolute;
-            right: 20%;
-            top: 10%;
-            width: 30px;
-            height: 120px;
-        }
+            .hero-content {
+                padding: 60px 48px 80px;
+                max-width: 55%;
+            }
 
-        /* Wood slats in hero */
-        .wood-slats {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 45%;
-            overflow: hidden;
-        }
+            .hero-nav {
+                padding: 20px 48px;
+            }
 
-        .wood-slats-inner {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            gap: 2px;
-        }
+            .craftsmanship {
+                padding: 80px 48px;
+            }
 
-        .wood-slat {
-            flex: 1;
-            background: linear-gradient(180deg, #8B6343 0%, #6B4226 50%, #8B6343 100%);
-            opacity: 0.85;
-        }
+            .section-title {
+                font-size: 26px;
+            }
 
-        .wood-slat:nth-child(even) {
-            background: linear-gradient(180deg, #6B4226 0%, #5C3520 50%, #6B4226 100%);
-            opacity: 0.9;
-        }
+            .functionality {
+                padding: 80px 48px;
+            }
 
-        /* Hero room scene */
-        .hero-scene {
-            position: absolute;
-            right: 0;
-            bottom: 0;
-            width: 55%;
-            height: 100%;
-            overflow: hidden;
-        }
+            .testimonials {
+                padding: 80px 48px;
+            }
 
-        .hero-floor {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30%;
-            background: linear-gradient(180deg, #C4A882 0%, #B8976A 100%);
-        }
+            .contact {
+                padding: 80px 48px;
+            }
 
-        .hero-wall {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 30%;
-            background: repeating-linear-gradient(
-                90deg,
-                #8B6343 0px,
-                #7A5535 15px,
-                #6B4A2E 16px,
-                #8B6343 31px
-            );
-        }
-
-        .hero-armchair {
-            position: absolute;
-            bottom: 28%;
-            left: 10%;
-            width: 180px;
-            height: 120px;
+            .contact-title {
+                font-size: 28px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- =============================
-         HERO SECTION
-    ============================= -->
-    <header style="position: relative; min-height: 420px; overflow: hidden; background: #4A3020;">
-
-        <!-- Wood panel background -->
-        <div class="wood-slats">
-            <div class="wood-slats-inner">
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
-                <div class="wood-slat"></div>
+    <!-- ===== HERO SECTION ===== -->
+    <section class="hero">
+        <nav class="hero-nav">
+            <div class="hero-logo">
+                カスタム<br>＆スタック
             </div>
-        </div>
-
-        <!-- Room scene overlay -->
-        <div class="hero-scene">
-            <div class="hero-wall"></div>
-            <div class="hero-floor"></div>
-
-            <!-- Armchair SVG -->
-            <svg class="hero-armchair" viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
-                <!-- Chair back -->
-                <rect x="30" y="20" width="140" height="70" rx="8" fill="#D4B896" />
-                <!-- Chair seat -->
-                <rect x="20" y="80" width="160" height="30" rx="6" fill="#C8A882" />
-                <!-- Armrests -->
-                <rect x="10" y="60" width="25" height="55" rx="8" fill="#B8976A" />
-                <rect x="165" y="60" width="25" height="55" rx="8" fill="#B8976A" />
-                <!-- Legs -->
-                <rect x="35" y="105" width="12" height="30" rx="3" fill="#8B6343" />
-                <rect x="153" y="105" width="12" height="30" rx="3" fill="#8B6343" />
-                <!-- Cushion detail -->
-                <rect x="40" y="35" width="120" height="45" rx="5" fill="#DBBF9A" opacity="0.6" />
-            </svg>
-
-            <!-- Lamp -->
-            <svg style="position:absolute; right: 15%; top: 5%; width: 40px; height: 200px;" viewBox="0 0 40 200" xmlns="http://www.w3.org/2000/svg">
-                <!-- Shade -->
-                <ellipse cx="20" cy="30" rx="20" ry="6" fill="#E8D5B0" />
-                <path d="M0 30 L5 65 L35 65 L40 30 Z" fill="#F0E0C0" />
-                <ellipse cx="20" cy="65" rx="15" ry="4" fill="#D4C0A0" />
-                <!-- Stand -->
-                <rect x="18" y="65" width="4" height="120" fill="#8B7355" rx="2" />
-                <!-- Base -->
-                <ellipse cx="20" cy="188" rx="15" ry="5" fill="#6B5535" />
-            </svg>
-        </div>
-
-        <!-- Navigation -->
-        <nav>
-            <div class="nav-logo">
-                カスタム<br><span>＆クラフト</span>
-            </div>
-            <ul class="nav-links">
+            <ul class="hero-nav-links">
                 <li><a href="#">ホーム</a></li>
                 <li><a href="#">製品</a></li>
                 <li><a href="#">について</a></li>
@@ -767,87 +674,142 @@
             </ul>
         </nav>
 
-        <!-- Hero Content -->
-        <div class="hero-content" style="position: relative; z-index: 10; padding: 5rem 2rem 3rem; max-width: 50%;">
-            <h1 class="hero-title">お住まいに<br>手作りインテリアを</h1>
-            <a href="#" class="hero-btn">もっと詳しく見る</a>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                お住まいに<br>
+                手作りインテリアを
+            </h1>
+            <a href="#" class="hero-btn">もっと見る →</a>
         </div>
-    </header>
 
-    <!-- =============================
-         SECTION: CRAFTSMANSHIP
-    ============================= -->
-    <section class="section-craftsmanship">
+        <!-- Decorative element -->
+        <div class="hero-furniture">
+            <div class="furniture-lamp"></div>
+            <div class="furniture-chair"></div>
+        </div>
+    </section>
+
+
+    <!-- ===== CRAFTSMANSHIP SECTION ===== -->
+    <section class="craftsmanship">
         <div class="craftsmanship-inner">
             <div class="craftsmanship-text">
-                <h2>こだわりの<br>精巧さ</h2>
-                <p>
-                    世界中で選ばれる高品質なカスタム＆クラフトの製品は、
-                    どれも精密さです。特に以一番本格的な仕上げています。
-                    素材から製品まで、全ての工程に厳格な品質管理を施しています。
-                    お客様のニーズに合わせたカスタマイズオプションも豊富に揃えており、
-                    独自のデザインを実現することができます。どんなライフスタイルにも
-                    馴染む製品で、空間をより豊かなスタイルに変えてくれます。
+                <h2 class="section-title">
+                    こだわりの<br>精巧さ
+                </h2>
+                <p class="section-desc">
+                    今まで培ってきた家具のカスタム&スタックの製品は、どれも職人技で、独特の一貫を追い求めています。自然の木材や本革などの上質な素材を選びこんで、ひとつひとつ丁寧に製作しています。熟練した職人がその経験と技術を活かして、機能美に優れた暮らしを提案し、職人の心が込められた家具と個性的なインテリアで、ひとりひとりにある空間を演出します。
                 </p>
             </div>
             <div class="craftsmanship-image">
-                <!-- Folding chair image -->
-                <div class="img-placeholder img-chair">
-                    <svg viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:260px;">
-                        <!-- Background -->
-                        <rect width="240" height="280" fill="#F5ECD7" />
-
-                        <!-- Folding chair -->
-                        <!-- Back frame left -->
-                        <line x1="80" y1="40" x2="70" y2="200" stroke="#8B6343" stroke-width="6" stroke-linecap="round"/>
-                        <!-- Back frame right -->
-                        <line x1="150" y1="40" x2="160" y2="200" stroke="#8B6343" stroke-width="6" stroke-linecap="round"/>
-
-                        <!-- Back slats -->
-                        <rect x="72" y="55" width="86" height="8" rx="3" fill="#A0784A"/>
-                        <rect x="71" y="75" width="88" height="8" rx="3" fill="#A0784A"/>
-                        <rect x="70" y="95" width="90" height="8" rx="3" fill="#A0784A"/>
-                        <rect x="69" y="115" width="92" height="8" rx="3" fill="#A0784A"/>
-
-                        <!-- Seat -->
-                        <path d="M65 155 L175 155 L170 180 L70 180 Z" fill="#B08860" rx="3"/>
-                        <!-- Seat slats -->
-                        <rect x="68" y="158" width="104" height="6" rx="2" fill="#A0784A" opacity="0.7"/>
-                        <rect x="69" y="168" width="102" height="6" rx="2" fill="#A0784A" opacity="0.7"/>
-
-                        <!-- Front legs -->
-                        <line x1="75" y1="155" x2="65" y2="265" stroke="#8B6343" stroke-width="6" stroke-linecap="round"/>
-                        <line x1="165" y1="155" x2="175" y2="265" stroke="#8B6343" stroke-width="6" stroke-linecap="round"/>
-
-                        <!-- Cross brace -->
-                        <line x1="68" y1="200" x2="172" y2="200" stroke="#8B6343" stroke-width="5" stroke-linecap="round"/>
-
-                        <!-- Fold joint highlight -->
-                        <circle cx="90" cy="153" r="5" fill="#C49A6C"/>
-                        <circle cx="150" cy="153" r="5" fill="#C49A6C"/>
-
-                        <!-- Shadow -->
-                        <ellipse cx="120" cy="268" rx="55" ry="6" fill="rgba(0,0,0,0.08)"/>
-                    </svg>
+                <div class="chair-image-wrapper">
+                    <div class="chair-img-placeholder">
+                        <!-- Folding chair visual representation -->
+                        <svg viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg" style="position:absolute;top:0;left:0;width:100%;height:100%">
+                            <!-- Chair seat -->
+                            <rect x="50" y="80" width="100" height="12" rx="3" fill="#8B5E20" opacity="0.9"/>
+                            <!-- Chair back slats -->
+                            <rect x="60" y="30" width="8" height="52" rx="2" fill="#A06830"/>
+                            <rect x="74" y="25" width="8" height="57" rx="2" fill="#9A6228"/>
+                            <rect x="88" y="22" width="8" height="60" rx="2" fill="#A06830"/>
+                            <rect x="102" y="25" width="8" height="57" rx="2" fill="#9A6228"/>
+                            <rect x="116" y="30" width="8" height="52" rx="2" fill="#A06830"/>
+                            <!-- Back top rail -->
+                            <rect x="55" y="22" width="80" height="10" rx="3" fill="#8B5E20"/>
+                            <!-- Back bottom rail -->
+                            <rect x="55" y="74" width="80" height="10" rx="3" fill="#8B5E20"/>
+                            <!-- Front legs -->
+                            <rect x="58" y="92" width="10" height="100" rx="3" fill="#7A5018"/>
+                            <rect x="128" y="92" width="10" height="100" rx="3" fill="#7A5018"/>
+                            <!-- Back legs -->
+                            <rect x="62" y="92" width="8" height="90" rx="2" fill="#6A4010" transform="rotate(-8, 66, 92)"/>
+                            <rect x="122" y="92" width="8" height="90" rx="2" fill="#6A4010" transform="rotate(8, 126, 92)"/>
+                            <!-- Cross brace -->
+                            <rect x="62" y="150" width="72" height="7" rx="2" fill="#8B5E20"/>
+                        </svg>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- =============================
-         SECTION: FUNCTIONALITY
-    ============================= -->
-    <section class="section-functionality">
-        <div class="section-inner">
-            <div class="section-header">
-                <h2>考え抜かれた<br>機能性</h2>
-                <a href="#" class="btn-outline">製品を見る</a>
+
+    <!-- ===== FUNCTIONALITY SECTION ===== -->
+    <section class="functionality">
+        <div class="functionality-inner">
+            <div class="functionality-header">
+                <h2 class="section-title">
+                    考え抜かれた<br>機能性
+                </h2>
+                <a href="#" class="btn-outline">詳細はこちら</a>
             </div>
 
-            <div class="products-grid">
+            <div class="product-grid">
                 <!-- Product 1: Stoneware -->
                 <div class="product-card">
-                    <div class="product-card-img-placeholder product-card-img-1">
-                        <svg viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:150px;">
-                            <rect width="200" height="150" fill="#E8E0D5"/>
-                            <!-- Plate -->
+                    <div class="product-img-placeholder stoneware">
+                        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0">
+                            <rect width="200" height="160" fill="#1A1A1A"/>
+                            <!-- Plate/dish -->
+                            <ellipse cx="80" cy="85" rx="45" ry="45" fill="#333"/>
+                            <ellipse cx="80" cy="85" rx="38" ry="38" fill="#3D3A38"/>
+                            <ellipse cx="80" cy="85" rx="28" ry="28" fill="#2A2826"/>
+                            <!-- Fork -->
+                            <rect x="130" y="40" width="6" height="80" rx="3" fill="#888"/>
+                            <rect x="128" y="40" width="2" height="30" rx="1" fill="#888"/>
+                            <rect x="136" y="40" width="2" height="30" rx="1" fill="#888"/>
+                            <!-- Knife -->
+                            <rect x="145" y="40" width="5" height="80" rx="2" fill="#999"/>
+                            <path d="M145 40 L152 55 L150 120 L145 120 Z" fill="#AAA"/>
+                        </svg>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">ストーンウェア食器</h3>
+                        <p class="product-desc">自然な風合いを大切にした、<br>職人のハンドメイドデザイン</p>
+                    </div>
+                </div>
+
+                <!-- Product 2: Furniture -->
+                <div class="product-card">
+                    <div class="product-img-placeholder furniture">
+                        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0">
+                            <rect width="200" height="160" fill="#8FBC6A"/>
+                            <!-- Chair simplified -->
+                            <rect x="75" y="55" width="50" height="8" rx="2" fill="#3A5A20"/>
+                            <rect x="70" y="63" width="60" height="6" rx="2" fill="#3A5A20"/>
+                            <rect x="78" y="69" width="8" height="55" rx="2" fill="#2A4A10"/>
+                            <rect x="114" y="69" width="8" height="55" rx="2" fill="#2A4A10"/>
+                            <rect x="79" y="100" width="42" height="6" rx="2" fill="#3A5A20"/>
+                            <!-- Chair back -->
+                            <rect x="82" y="20" width="8" height="37" rx="2" fill="#4A6A30"/>
+                            <rect x="96" y="16" width="8" height="41" rx="2" fill="#4A6A30"/>
+                            <rect x="110" y="20" width="8" height="37" rx="2" fill="#4A6A30"/>
+                            <rect x="79" y="14" width="42" height="8" rx="2" fill="#3A5A20"/>
+                        </svg>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">家具</h3>
+                        <p class="product-desc">カスタムで製作された木の家具と、どんな空間にも馴染むスタイル</p>
+                    </div>
+                </div>
+
+                <!-- Product 3: Interior -->
+                <div class="product-card">
+                    <div class="product-img-placeholder interior">
+                        <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;position:absolute;top:0;left:0">
+                            <rect width="200" height="160" fill="#F5EEE5"/>
+                            <!-- Picture frame 1 -->
+                            <rect x="50" y="20" width="65" height="85" rx="3" fill="white" stroke="#DDD" stroke-width="2"/>
+                            <rect x="55" y="25" width="55" height="75" rx="2" fill="#F0E8D8"/>
+                            <!-- Simple leaf drawing in frame -->
+                            <ellipse cx="82" cy="62" rx="18" ry="30" fill="#C8D8B0" opacity="0.7" transform="rotate(-15,82,62)"/>
+                            <line x1="82" y1="90" x2="82" y2="30" stroke="#8A9A70" stroke-width="2"/>
+                            <!-- Small frame 2 -->
+                            <rect x="120" y="30" width="50" height="65" rx="3" fill="white" stroke="#DDD" stroke-width="2"/>
+                            <rect x="124" y="34" width="42" height="57" rx="2" fill="#E8E0D0"/>
+                            <!-- Abstract lines in frame 2 -->
+                            <line x1="130" y1="45" x2="160" y2="45" stroke="#CCC" stroke-width="1.5"/>
+                            <line x1="130" y1="55" x2="155" y2="55" stroke="#CCC" stroke-width="1.5"/>
+                            <line x1="130" y1="65" x2="158" y2="65" stroke="#CCC" stroke-width="1.5"/>
+                            <line x1="130" y1="75" x2="150" y2="75" stroke="#CCC" stroke-width="1.5"/>
+                            <!-- Shelf line

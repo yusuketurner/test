@@ -1,0 +1,13 @@
+{
+  "name": "design-to-code",
+  "version": "1.0.0",
+  "description": "Automated design-to-code system using Claude Vision API",
+  "main": "index.js",
+  "scripts": {
+    "build": "echo \"No build step required\"",
+    "test": "echo \"No tests configured\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}

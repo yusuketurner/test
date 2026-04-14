@@ -18,7 +18,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -31,9 +31,16 @@ jobs:
       - name: Get added JPEG files
         id: changed_files
         run: |
-          ADDED=$(git diff --name-only --diff-filter=A HEAD~1 HEAD \
-            -- 'designs/*.jpg' 'designs/*.jpeg' 'designs/*.JPG' 'designs/*.JPEG' \
-            | tr '\n' ' ')
+          BEFORE="${{ github.event.before }}"
+          AFTER="${{ github.sha }}"
+          # 初回プッシュ(before=0000...)の場合は全ファイルを対象にする
+          if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+            ADDED=$(git ls-files 'designs/*.jpg' 'designs/*.jpeg' 'designs/*.JPG' 'designs/*.JPEG' | tr '\n' ' ')
+          else
+            ADDED=$(git diff --name-only --diff-filter=A "$BEFORE" "$AFTER" \
+              -- 'designs/*.jpg' 'designs/*.jpeg' 'designs/*.JPG' 'designs/*.JPEG' \
+              | tr '\n' ' ')
+          fi
           echo "files=$ADDED" >> $GITHUB_OUTPUT
           echo "Added files: $ADDED"
 
@@ -57,7 +64,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "auto: generate HTML/CSS from $(echo '${{ steps.changed_files.outputs.files }}' | xargs -n1 basename | tr '\n' ' ')"
+            git commit -m "auto: generate HTML/CSS from design images"
             git push
           fi
 
